@@ -77,3 +77,16 @@ A project for creating a class library that targets .NET or .NET Standard
 #+begin_quote
 error CS0579: Duplicate 'global::System.Runtime.Versioning.TargetFrameworkAttribute' attribute
 #+end_quote
+
+** 更改目录结构 <2024-05-30 周四>
+
+~CS0579~ 这个错误可能跟目录结构有关：
+
++ 创建一个空的解决方案 ~Blank Solution~ ，让 ~vs~ 来管理各子工程。
++ 同时这样的话，各个子工程生成的 ~exe~ 或 ~dll~ 都在同一个目录下。
+
+经过这样修改后，现在编译错误就正常多了：
+
+#+begin_quote
+error CS1061: 'KestrelServerOptions' does not contain a definition for 'NoLimit'
+#+end_quote
