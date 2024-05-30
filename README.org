@@ -2,7 +2,7 @@
 #+author: ysouyno
 #+options: ^:nil
 
-* 前言 <2024-05-30 周四>
+* 从零开始 <2024-05-30 周四>
 
 ~FastGithub~ 是一个非常优秀的工具，每天都在用，同时对于域有特殊的效果。我想将它再完善一下，主要适应自自己的使用方式。但目前有两个难点：
 
@@ -38,6 +38,12 @@
   }
 #+end_src
 
-** TODO ~ServiceExtensions~ 是怎么建立联系的？
+** ~ServiceExtensions~ 是怎么建立联系的？ <2024-05-30 周四>
 
 原工程中的 ~singleton~ 在新工程中无法编译通过，发现 ~singleton~ 是在 ~ServiceExtensions~ 类中似乎重写了 ~Run~ 函数，但是我没有 ~ServiceExtensions~ 是怎么建立上联系的？
+
+取消 ~TODO~ ：这 ~ServiceExtensions~ 类看来就是为了注册 ~windows~ 服务的，有违的我初衷，所以就不追这个细节了。
+
+1. 添加 ~Serilog.Sinks.Console~ 和 ~Serilog.Sinks.File~ 日志功能。
+2. 为了使用上 ~UseSerilog~ 函数，你还得安装 ~Serilog.Extensions.Hosting~ 。
+3. 为了用上 ~.ReadFrom.Configuration~ ，你还得安装 ~Serilog.Settings.Configuration~ 。
