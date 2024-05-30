@@ -44,6 +44,21 @@
 
 取消 ~TODO~ ：这 ~ServiceExtensions~ 类看来就是为了注册 ~windows~ 服务的，有违的我初衷，所以就不追这个细节了。
 
-1. 添加 ~Serilog.Sinks.Console~ 和 ~Serilog.Sinks.File~ 日志功能。
-2. 为了使用上 ~UseSerilog~ 函数，你还得安装 ~Serilog.Extensions.Hosting~ 。
-3. 为了用上 ~.ReadFrom.Configuration~ ，你还得安装 ~Serilog.Settings.Configuration~ 。
+** 添加 ~Serilog~ 功能 <2024-05-30 周四>
+
+使用 ~NuGet~ 安装：
+
+1. 安装 ~Serilog.Sinks.Console~ 和 ~Serilog.Sinks.File~ 日志功能。
+2. 为了用上 ~UseSerilog~ 函数，你还得安装 ~Serilog.Extensions.Hosting~ 。
+3. 为了用上 ~ReadFrom.Configuration~ ，你还得安装 ~Serilog.Settings.Configuration~ 。
+
+** 添加 ~kestrel~ 扩展 <2024-05-30 周四>
+
+#+begin_quote
+Class Library
+
+A project for creating a class library that targets .NET or .NET Standard
+#+end_quote
+
+1. 创建一个 ~Class Library~ 类型的工程 ~fake_fastgithub.HttpServer~ ， ~vs~ 中有众多的 ~Class Library~ ，请选择这个（见上）。
+2. 创建 ~KestrelServerExtensions~ 类，并新增 ~NoLimit()~ 方法。

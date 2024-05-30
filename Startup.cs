@@ -16,5 +16,14 @@ namespace fake_fastgithub
                 .WriteTo.File(Path.Combine("fakelogs", @"log.txt"), rollingInterval: RollingInterval.Day, outputTemplate: template);
             });
         }
+
+        public static void ConfigureWebHost(this WebApplicationBuilder builder)
+        {
+            builder.WebHost.UseShutdownTimeout(TimeSpan.FromSeconds(1d));
+            builder.WebHost.UseKestrel(kestrel =>
+            {
+                kestrel.NoLimit();
+            });
+        }
     }
 }
