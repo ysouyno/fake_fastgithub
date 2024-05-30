@@ -1,4 +1,6 @@
-﻿namespace fake_fastgithub.HttpServer
+﻿using Microsoft.AspNetCore.Server.Kestrel.Core;
+
+namespace fake_fastgithub
 {
     public static class KestrelServerExtensions
     {

@@ -6,8 +6,8 @@
 
 ~FastGithub~ 是一个非常优秀的工具，每天都在用，同时对于域有特殊的效果。我想将它再完善一下，主要适应自自己的使用方式。但目前有两个难点：
 
-1. 不了解 ~csharp~ ，很难下手。
-2. 不了解网络概念，比如 ~CDN~ ， ~反向代理~ 等等。
++ 不了解 ~csharp~ ，很难下手。
++ 不了解网络概念，比如 ~CDN~ ， ~反向代理~ 等等。
 
 从昨天的调查发现， ~FastGithub~ 使用的是 ~ASP.NET Core~ 工程类型，并使用 ~YARP~ 实现反向代理，昨天已经写了两个小 ~demo~ 大概了解了这两个知识点，所以今天就直接动手了，先创建一个 ~ASP.NET Core Empty~ 工程，然后替换 ~Program.cs~ 中的默认代码如下：
 
@@ -48,9 +48,9 @@
 
 使用 ~NuGet~ 安装：
 
-1. 安装 ~Serilog.Sinks.Console~ 和 ~Serilog.Sinks.File~ 日志功能。
-2. 为了用上 ~UseSerilog~ 函数，你还得安装 ~Serilog.Extensions.Hosting~ 。
-3. 为了用上 ~ReadFrom.Configuration~ ，你还得安装 ~Serilog.Settings.Configuration~ 。
++ 安装 ~Serilog.Sinks.Console~ 和 ~Serilog.Sinks.File~ 日志功能。
++ 为了用上 ~UseSerilog~ 函数，你还得安装 ~Serilog.Extensions.Hosting~ 。
++ 为了用上 ~ReadFrom.Configuration~ ，你还得安装 ~Serilog.Settings.Configuration~ 。
 
 ** 添加 ~kestrel~ 扩展 <2024-05-30 周四>
 
@@ -60,5 +60,20 @@ Class Library
 A project for creating a class library that targets .NET or .NET Standard
 #+end_quote
 
-1. 创建一个 ~Class Library~ 类型的工程 ~fake_fastgithub.HttpServer~ ， ~vs~ 中有众多的 ~Class Library~ ，请选择这个（见上）。
-2. 创建 ~KestrelServerExtensions~ 类，并新增 ~NoLimit()~ 方法。
++ 创建一个 ~Class Library~ 类型的工程 ~fake_fastgithub.HttpServer~ ， ~vs~ 中有众多的 ~Class Library~ ，请选择这个（见上）。
++ 创建 ~KestrelServerExtensions~ 类，并新增 ~NoLimit()~ 方法。
++ 右键新建的工程，选择 ~Edit Project File~ 菜单，添加如下，这样在 ~Dependencies~ 的 ~Frameworks~ 中就可以看到 ~Microsoft.AspNetCore.App~ 了， ~KestrelServerOptions~ 类型也就不报错了。
+
+#+begin_src xml
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+#+end_src
+
++ 然后将自动生成的命名空间从 ~fake_fastgithub.HttpServer~ 修改为 ~fake_fastgithub~ ，这样 ~fake_fastgithub.HttpServer~ 就编译成功了。
+
+但是此时 ~fake_fastgithub~ 却编译失败：
+
+#+begin_quote
+error CS0579: Duplicate 'global::System.Runtime.Versioning.TargetFrameworkAttribute' attribute
+#+end_quote
