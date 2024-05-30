@@ -400,4 +400,4 @@ FodyWeavers.xsd
 # By ysouyno
 *.html
 *.htm
-/fakelogs
+/fake_fastgithub/fakelogs

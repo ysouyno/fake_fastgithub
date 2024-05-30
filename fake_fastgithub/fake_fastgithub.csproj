@@ -13,4 +13,8 @@
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\fake_fastgithub.HttpServer\fake_fastgithub.HttpServer.csproj" />
+  </ItemGroup>
+
 </Project>

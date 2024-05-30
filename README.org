@@ -90,3 +90,9 @@ error CS0579: Duplicate 'global::System.Runtime.Versioning.TargetFrameworkAttrib
 #+begin_quote
 error CS1061: 'KestrelServerOptions' does not contain a definition for 'NoLimit'
 #+end_quote
+
+** 解决 ~CS1061~ 这个错误 <2024-05-30 周四>
+
+在 ~fake_fastgithub~ 项目中设置 ~Dependencies~ 的关联工程 ~fake_fastgithub.HttpServer~ 即可。
+
+目前所有代码编译都成功！
