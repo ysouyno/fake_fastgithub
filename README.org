@@ -96,3 +96,13 @@ error CS1061: 'KestrelServerOptions' does not contain a definition for 'NoLimit'
 在 ~fake_fastgithub~ 项目中设置 ~Dependencies~ 的关联工程 ~fake_fastgithub.HttpServer~ 即可。
 
 目前所有代码编译都成功！
+
+** 新增 ~fake_fastgithub.Configuration~ 工程
+
+尝试添加 ~ListenHttpsReverseProxy~ 函数，要用到 ~GlobalListener.HttpsPort~ ，它属于 ~fake_fastgithub.Configuration~ 工程，添加了该工程及 ~GlobalListener~ 类后，目前编译报错：
+
+#+begin_quote
+error CS0103: The name 'GlobalListener' does not exist in the current context
+#+end_quote
+
+暂时先用 ~443~ 代替 ~GlobalListener.HttpsPort~ 让编译通过。
