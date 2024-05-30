@@ -1,6 +1,24 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+namespace fake_fastgithub
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("fake_fastgithub");
+            var options = new WebApplicationOptions
+            {
+                Args = args,
+            };
+            CreateWebApplication(options).Run(/*singleton: true*/);
+        }
 
-app.MapGet("/", () => "Hello World!");
+        private static WebApplication CreateWebApplication(WebApplicationOptions options)
+        {
+            var builder = WebApplication.CreateBuilder(options);
+            var app = builder.Build();
+            app.MapGet("/", () => "Hello World!");
 
-app.Run();
+            return app;
+        }
+    }
+}

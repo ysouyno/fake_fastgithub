@@ -1,0 +1,43 @@
+#+title: fake_fastgithub 开发记录
+#+author: ysouyno
+#+options: ^:nil
+
+* 前言 <2024-05-30 周四>
+
+~FastGithub~ 是一个非常优秀的工具，每天都在用，同时对于域有特殊的效果。我想将它再完善一下，主要适应自自己的使用方式。但目前有两个难点：
+
+1. 不了解 ~csharp~ ，很难下手。
+2. 不了解网络概念，比如 ~CDN~ ， ~反向代理~ 等等。
+
+从昨天的调查发现， ~FastGithub~ 使用的是 ~ASP.NET Core~ 工程类型，并使用 ~YARP~ 实现反向代理，昨天已经写了两个小 ~demo~ 大概了解了这两个知识点，所以今天就直接动手了，先创建一个 ~ASP.NET Core Empty~ 工程，然后替换 ~Program.cs~ 中的默认代码如下：
+
+#+begin_src csharp
+  namespace fake_fastgithub
+  {
+      class Program
+      {
+          public static void Main(string[] args)
+          {
+              Console.WriteLine("fake_fastgithub");
+              var options = new WebApplicationOptions
+              {
+                  Args = args,
+              };
+              CreateWebApplication(options).Run(/*singleton: true*/);
+          }
+
+          private static WebApplication CreateWebApplication(WebApplicationOptions options)
+          {
+              var builder = WebApplication.CreateBuilder(options);
+              var app = builder.Build();
+              app.MapGet("/", () => "Hello World!");
+
+              return app;
+          }
+      }
+  }
+#+end_src
+
+** TODO ~ServiceExtensions~ 是怎么建立联系的？
+
+原工程中的 ~singleton~ 在新工程中无法编译通过，发现 ~singleton~ 是在 ~ServiceExtensions~ 类中似乎重写了 ~Run~ 函数，但是我没有 ~ServiceExtensions~ 是怎么建立上联系的？
