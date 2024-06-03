@@ -128,3 +128,7 @@ System.InvalidOperationException: 'No service for type 'fake_fastgithub.HttpServ
 [[file:images/usetls_0.png][file:images/usetls_0.png]]
 
 我查了原工程中的引用，可能还要添加 ~AddReverseProxy~ 函数。
+
+为了用上 ~AddHttpForwarder()~ ，安装 ~Yarp.ReverseProxy~ 。
+
+在添加了 ~AddReverseProxy~ 函数后，目前可以生成 ~fake_fastgithub.key~ 和 ~fake_fastgithub.cer~ 文件了。并且 ~https:443~ 反向代理服务器可以启动成功。

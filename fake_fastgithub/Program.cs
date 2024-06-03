@@ -19,6 +19,7 @@ namespace fake_fastgithub
             // TODO
             builder.ConfigureHost();
             builder.ConfigureWebHost();
+            builder.ConfigureService();
 
             var app = builder.Build();
             app.MapGet("/", () => "Hello World!");

@@ -401,3 +401,4 @@ FodyWeavers.xsd
 *.html
 *.htm
 /fake_fastgithub/fakelogs
+/fake_fastgithub/cacert

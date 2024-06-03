@@ -30,5 +30,13 @@ namespace fake_fastgithub
                 }
             });
         }
+
+        public static void ConfigureService(this WebApplicationBuilder builder)
+        {
+            // TODO
+            var services = builder.Services;
+
+            services.AddReverseProxy();
+        }
     }
 }
