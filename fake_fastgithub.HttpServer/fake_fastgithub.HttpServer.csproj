@@ -10,4 +10,8 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\fake_fastgithub.Configuration\fake_fastgithub.Configuration.csproj" />
+  </ItemGroup>
+
 </Project>

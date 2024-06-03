@@ -38,13 +38,13 @@
   }
 #+end_src
 
-** ~ServiceExtensions~ 是怎么建立联系的？ <2024-05-30 周四>
+** ~ServiceExtensions~ 是怎么建立联系的？
 
 原工程中的 ~singleton~ 在新工程中无法编译通过，发现 ~singleton~ 是在 ~ServiceExtensions~ 类中似乎重写了 ~Run~ 函数，但是我没有 ~ServiceExtensions~ 是怎么建立上联系的？
 
 取消 ~TODO~ ：这 ~ServiceExtensions~ 类看来就是为了注册 ~windows~ 服务的，有违的我初衷，所以就不追这个细节了。
 
-** 添加 ~Serilog~ 功能 <2024-05-30 周四>
+** 添加 ~Serilog~ 功能
 
 使用 ~NuGet~ 安装：
 
@@ -52,7 +52,7 @@
 + 为了用上 ~UseSerilog~ 函数，你还得安装 ~Serilog.Extensions.Hosting~ 。
 + 为了用上 ~ReadFrom.Configuration~ ，你还得安装 ~Serilog.Settings.Configuration~ 。
 
-** 添加 ~kestrel~ 扩展 <2024-05-30 周四>
+** 添加 ~kestrel~ 扩展
 
 #+begin_quote
 Class Library
@@ -91,7 +91,7 @@ error CS0579: Duplicate 'global::System.Runtime.Versioning.TargetFrameworkAttrib
 error CS1061: 'KestrelServerOptions' does not contain a definition for 'NoLimit'
 #+end_quote
 
-** 解决 ~CS1061~ 这个错误 <2024-05-30 周四>
+** 解决 ~CS1061~ 这个错误
 
 在 ~fake_fastgithub~ 项目中设置 ~Dependencies~ 的关联工程 ~fake_fastgithub.HttpServer~ 即可。
 
@@ -106,3 +106,10 @@ error CS0103: The name 'GlobalListener' does not exist in the current context
 #+end_quote
 
 暂时先用 ~443~ 代替 ~GlobalListener.HttpsPort~ 让编译通过。
+
+* <2024-06-03 周一>
+
+** 修复上节 ~CS0103~ 错误
+
++ 要在依赖的工程中加入 ~fake_fastgithub.Configuration~ 。
++ 要引入命名空间 ~using fake_fastgithub.Configuration;~ 。

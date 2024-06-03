@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using fake_fastgithub.Configuration;
 
 namespace fake_fastgithub
 {
@@ -21,7 +22,7 @@ namespace fake_fastgithub
 
         private static void ListenHttpsReverseProxy(this KestrelServerOptions kestrel)
         {
-            var https_port = 443; // GlobalListener.HttpsPort;
+            var https_port = GlobalListener.HttpsPort;
             kestrel.ListenLocalhost(https_port, listen =>
             {
                 // TODO
