@@ -89,7 +89,7 @@ namespace fake_fastgithub.HttpServer.Certs
             }
             else
             {
-                logger.LogWarning($"请根据你的系统平台手动安装和信任 CA 证书{this.CaCerFilePath}");
+                logger.LogWarning($"请根据你的系统平台手动安装和信任 CA 证书 {this.CaCerFilePath}");
             }
 
             GitConfigSslverify(false);
