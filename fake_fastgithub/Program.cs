@@ -15,7 +15,10 @@ namespace fake_fastgithub
         private static WebApplication CreateWebApplication(WebApplicationOptions options)
         {
             var builder = WebApplication.CreateBuilder(options);
+
+            // TODO
             builder.ConfigureHost();
+            builder.ConfigureWebHost();
 
             var app = builder.Build();
             app.MapGet("/", () => "Hello World!");

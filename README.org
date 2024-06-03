@@ -113,3 +113,18 @@ error CS0103: The name 'GlobalListener' does not exist in the current context
 
 + 要在依赖的工程中加入 ~fake_fastgithub.Configuration~ 。
 + 要引入命名空间 ~using fake_fastgithub.Configuration;~ 。
+
+** 添加 ~tls~ 及中间件
+
+这里添加了好多代码，开始的时候还能敲敲，后面就复制粘贴了。目前的状态：不能生成 ~fake_fastgithub.key~ 文件，因为有如下错误：
+
+#+begin_quote
+System.InvalidOperationException: 'No service for type 'fake_fastgithub.HttpServer.Certs.CertService' has been registered.'
+#+end_quote
+
+如图：
+
+#+attr_html: :width 800
+[[file:images/usetls_0.png][file:images/usetls_0.png]]
+
+我查了原工程中的引用，可能还要添加 ~AddReverseProxy~ 函数。

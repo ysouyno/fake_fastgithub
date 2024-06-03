@@ -23,6 +23,11 @@ namespace fake_fastgithub
             builder.WebHost.UseKestrel(kestrel =>
             {
                 kestrel.NoLimit();
+                if (OperatingSystem.IsWindows())
+                {
+                    // TODO
+                    kestrel.ListenHttpsReverseProxy();
+                }
             });
         }
     }
