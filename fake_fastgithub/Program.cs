@@ -10,6 +10,7 @@ namespace fake_fastgithub
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host.CreateDefaultBuilder(args)
+                .UseBinaryPathContentRoot()
                 .UseDefaultServiceProvider(c =>
                 {
                     c.ValidateOnBuild = true;
@@ -31,6 +32,7 @@ namespace fake_fastgithub
                     webBuilder.UseKestrel(kestrel =>
                     {
                         kestrel.Limits.MaxRequestBodySize = null;
+                        kestrel.ListenGithubSshProxy();
                     });
                 });
         }
