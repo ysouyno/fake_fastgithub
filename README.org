@@ -132,3 +132,11 @@ System.InvalidOperationException: 'No service for type 'fake_fastgithub.HttpServ
 为了用上 ~AddHttpForwarder()~ ，安装 ~Yarp.ReverseProxy~ 。
 
 在添加了 ~AddReverseProxy~ 函数后，目前可以生成 ~fake_fastgithub.key~ 和 ~fake_fastgithub.cer~ 文件了。并且 ~https:443~ 反向代理服务器可以启动成功。
+
+* <2024-06-26 周三>
+
+** 重新开始
+
+花了一上午的时间尝试原项目的各个 ~commit~ ，被我发现 ~4faa241b87712222e13047dd2d46430f23144d3b（挑选可用且最快的 ip）~ 该 ~commit~ 就已经有了我需要的功能（域环境下依然可以 ~git push~ ）。
+
+所以我打算在此 ~commit~ 上来重新开始。
