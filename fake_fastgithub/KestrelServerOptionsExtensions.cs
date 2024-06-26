@@ -32,6 +32,7 @@ namespace fake_fastgithub
         public static void ListenHttpsReverseProxy(this KestrelServerOptions kestrel)
         {
             const int HTTPS_PORT = 443;
+
             if (OperatingSystem.IsWindows())
             {
                 // TODO

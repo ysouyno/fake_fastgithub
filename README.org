@@ -150,3 +150,21 @@ System.InvalidOperationException: 'No service for type 'fake_fastgithub.HttpServ
 ** 关于 ~Microsoft.Extensions~ 的引入
 
 可能还是不太熟， ~Microsoft.Extensions~ 位于 ~Microsoft.AspNetCore.App~ 中，所以怎么添加它，方便就在这篇文章中。
+
+** 关于 ~System.InvalidOperationException~ 异常
+
+如图：
+
+#+attr_html: :width 800
+[[file:images/exception_0.png][file:images/exception_0.png]]
+
+同时发现这里有一处警告：
+
+#+attr_html: :width 800
+[[file:images/warning_0.png][file:images/warning_0.png]]
+
+所以可能的问题就在这里：
+
+#+begin_src text
+CertService.cs(85,20,85,74): warning CS8603: Possible null reference return.
+#+end_src
