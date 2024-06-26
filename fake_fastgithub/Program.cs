@@ -13,7 +13,7 @@ namespace fake_fastgithub
                 .UseBinaryPathContentRoot()
                 .UseDefaultServiceProvider(c =>
                 {
-                    c.ValidateOnBuild = true;
+                    c.ValidateOnBuild = false;
                 })
                 .ConfigureAppConfiguration(c =>
                 {
@@ -33,6 +33,7 @@ namespace fake_fastgithub
                     {
                         kestrel.Limits.MaxRequestBodySize = null;
                         kestrel.ListenGithubSshProxy();
+                        kestrel.ListenHttpsReverseProxy();
                     });
                 });
         }

@@ -28,5 +28,32 @@ namespace fake_fastgithub
                 logger.LogInformation("已监听 github 的 ssh 代理");
             }
         }
+
+        public static void ListenHttpsReverseProxy(this KestrelServerOptions kestrel)
+        {
+            const int HTTPS_PORT = 443;
+            if (OperatingSystem.IsWindows())
+            {
+                // TODO
+            }
+
+            if (LocalMachine.CanListenTcp(HTTPS_PORT) == false)
+            {
+                throw new Exception($"由于 tcp 端口 {HTTPS_PORT} 已经被其它进程占用，" +
+                    $"{nameof(fake_fastgithub)} 无法进行必须的 https 反向代理");
+            }
+
+            var certService = kestrel.ApplicationServices.GetRequiredService<CertService>();
+            certService.CreateCaCertIfNotExists();
+            certService.InstallAndTrustCaCert();
+
+            kestrel.Listen(IPAddress.Any, HTTPS_PORT,
+                listen => listen.UseHttps(https =>
+                https.ServerCertificateSelector = (ctx, domain) =>
+                certService.GetOrCreateServerCert(domain)));
+
+            var logger = kestrel.GetLogger();
+            logger.LogInformation($"已监听 https 反向代理，访问 https://127.0.0.1 或本机其它任意 ip 可进入 Dashboard");
+        }
     }
 }

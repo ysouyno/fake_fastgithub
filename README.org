@@ -146,3 +146,7 @@ System.InvalidOperationException: 'No service for type 'fake_fastgithub.HttpServ
 从本 ~commit~ 的日志输出来看，估计是此 ~commit~ 下当获得到最新的 ~ip~ 时，即可用的 ~ip~ 时，一直使用该地址，所以会一直成功；而最新版可能更新频率太快导致之前可用的 ~ip~ 被更新掉了。
 
 该 ~commit~ 也有一个问题就是如果是从 ~114.114.114.114~ 中获得的 ~ip~ ，它肯定是不可用的（日志输出会显示警告），你一直 ~push~ 就会一直失败。测算发现，该间隔是两分钟，即两分钟后再次 ~push~ ，就是重新去获取 ~ip~ 。
+
+** 关于 ~Microsoft.Extensions~ 的引入
+
+可能还是不太熟， ~Microsoft.Extensions~ 位于 ~Microsoft.AspNetCore.App~ 中，所以怎么添加它，方便就在这篇文章中。
