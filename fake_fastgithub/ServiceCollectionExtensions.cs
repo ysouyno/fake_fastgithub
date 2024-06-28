@@ -19,5 +19,12 @@ namespace fake_fastgithub
             services.AddSingleton<IDnsValidator, ProxyValidtor>();
             return services.AddHostedService<DnsHostedService>();
         }
+
+        public static IServiceCollection AddDomainResolve(this IServiceCollection services)
+        {
+            services.AddMemoryCache();
+            services.TryAddSingleton<IDomainResolver, DomainResolver>();
+            return services.AddHostedService<DnscryptProxyHostedService>();
+        }
     }
 }
