@@ -33,6 +33,7 @@ namespace fake_fastgithub
                     {
                         kestrel.Limits.MaxRequestBodySize = null;
                         kestrel.ListenGithubSshProxy();
+                        kestrel.ListenHttpReverseProxy();
                         kestrel.ListenHttpsReverseProxy();
                     });
                 });

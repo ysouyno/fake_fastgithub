@@ -29,6 +29,22 @@ namespace fake_fastgithub
             }
         }
 
+        public static void ListenHttpReverseProxy(this KestrelServerOptions kestrel)
+        {
+            const int HTTP_PORT = 80;
+            var logger = kestrel.GetLogger();
+
+            if (LocalMachine.CanListenTcp(HTTP_PORT) == false)
+            {
+                logger.LogWarning($"由于 tcp 端口 {HTTP_PORT} 已经被其它进程占用，http 反向代理功能将受限");
+            }
+            else
+            {
+                kestrel.Listen(IPAddress.Any, HTTP_PORT);
+                logger.LogInformation($"已监听 http 反向代理，访问 http://127.0.0.1 或本机其它任意 ip 可进入 Dashboard");
+            }
+        }
+
         public static void ListenHttpsReverseProxy(this KestrelServerOptions kestrel)
         {
             const int HTTPS_PORT = 443;
