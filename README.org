@@ -151,7 +151,7 @@ System.InvalidOperationException: 'No service for type 'fake_fastgithub.HttpServ
 
 可能还是不太熟， ~Microsoft.Extensions~ 位于 ~Microsoft.AspNetCore.App~ 中，所以怎么添加它，方便就在这篇文章中。
 
-** 关于 ~System.InvalidOperationException~ 异常
+** 关于 ~System.InvalidOperationException~ 异常（一）
 
 如图：
 
@@ -168,3 +168,14 @@ System.InvalidOperationException: 'No service for type 'fake_fastgithub.HttpServ
 #+begin_src text
 CertService.cs(85,20,85,74): warning CS8603: Possible null reference return.
 #+end_src
+
+* <2024-06-28 周五>
+
+** 关于 ~System.InvalidOperationException~ 异常（二）
+
+如图：
+
+#+attr_html: :width 800
+[[file:images/exception_1.png][file:images/exception_1.png]]
+
+依然是这个异常，在当前 ~commit~ 下，该异常产生的地方变了。
