@@ -12,6 +12,7 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddConfiguration().Bind(Configuration.GetSection(nameof(fake_fastgithub)));
+            services.AddDnsServer();
             services.AddReverseProxy();
         }
 

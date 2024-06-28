@@ -10,5 +10,14 @@ namespace fake_fastgithub
             services.TryAddSingleton<FastGithubOptions>();
             return services.AddOptions<FastGithubOptions>();
         }
+
+        public static IServiceCollection AddDnsServer(this IServiceCollection services)
+        {
+            services.TryAddSingleton<RequestResolver>();
+            services.TryAddSingleton<DnsServer>();
+            services.AddSingleton<IDnsValidator, HostsValidator>();
+            services.AddSingleton<IDnsValidator, ProxyValidtor>();
+            return services.AddHostedService<DnsHostedService>();
+        }
     }
 }

@@ -46,7 +46,7 @@ namespace fake_fastgithub
             }
             else
             {
-                this.logger.LogWarning($"不支持自动安装证书 {this.CaCerFilePath}：请根据你的系统平台手工安装和信任 CA 证书");
+                this.logger.LogWarning($"不支持自动安装证书 {this.CaCerFilePath}，请根据你的系统平台手工安装和信任 CA 证书");
             }
         }
 
@@ -74,7 +74,7 @@ namespace fake_fastgithub
             }
             catch (Exception ex)
             {
-                this.logger.LogWarning($"安装证书 {this.CaCerFilePath} 失败：请手动安装到" +
+                this.logger.LogWarning($"安装证书 {this.CaCerFilePath} 失败，请手动安装到" +
                     $"“将所有的证书都放入下载存储”\\“受信任的根证书颁发机构”", ex);
             }
         }

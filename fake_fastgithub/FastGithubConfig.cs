@@ -52,5 +52,10 @@ namespace fake_fastgithub
 
             options.OnChange(opt => this.Update(opt));
         }
+
+        public bool IsMatch(string domain)
+        {
+            return domainConfigs.Keys.Any(item => item.IsMatch(domain));
+        }
     }
 }
