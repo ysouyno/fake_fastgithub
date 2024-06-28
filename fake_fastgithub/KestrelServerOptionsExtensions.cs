@@ -35,7 +35,7 @@ namespace fake_fastgithub
 
             if (OperatingSystem.IsWindows())
             {
-                // TODO
+                TcpTable.KillPortOwner(HTTPS_PORT);
             }
 
             if (LocalMachine.CanListenTcp(HTTPS_PORT) == false)
