@@ -166,7 +166,7 @@ System.InvalidOperationException: 'No service for type 'fake_fastgithub.HttpServ
 所以可能的问题就在这里：
 
 #+begin_src text
-CertService.cs(85,20,85,74): warning CS8603: Possible null reference return.
+  CertService.cs(85,20,85,74): warning CS8603: Possible null reference return.
 #+end_src
 
 * <2024-06-28 周五>
@@ -179,3 +179,32 @@ CertService.cs(85,20,85,74): warning CS8603: Possible null reference return.
 [[file:images/exception_1.png][file:images/exception_1.png]]
 
 依然是这个异常，在当前 ~commit~ 下，该异常产生的地方变了。
+
+** 关于 ~CS1061~ 错误
+
+#+begin_src csharp
+  /// <summary>
+  /// 获取 TlsSniPattern
+  /// </summary>
+  /// <returns></returns>
+  public TlsSniPattern GetTlsSniPattern()
+  {
+      // error CS1061: 'string' does not contain a definition for 'None'
+      // and no accessible extension method 'None' accepting a first
+      // argument of type 'string' could be found (are you missing a
+      // using directive or an assembly reference?)
+      if (TlsSni == false)
+      {
+          return fake_fastgithub.TlsSniPattern.None;
+      }
+
+      if (string.IsNullOrEmpty(TlsSniPattern))
+      {
+          return fake_fastgithub.TlsSniPattern.Domain;
+      }
+
+      return new TlsSniPattern(TlsSniPattern);
+  }
+#+end_src
+
+不知道这里为什么会有这个错误？必须要加上 ~fake_fastgithub~ 命令空间限定，虽然该类就在此 ~fake_fastgithub~ 命令空间里。

@@ -44,7 +44,21 @@
         /// <returns></returns>
         public TlsSniPattern GetTlsSniPattern()
         {
-            return new TlsSniPattern(); // TODO
+            // error CS1061: 'string' does not contain a definition for 'None'
+            // and no accessible extension method 'None' accepting a first
+            // argument of type 'string' could be found (are you missing a
+            // using directive or an assembly reference?)
+            if (TlsSni == false)
+            {
+                return fake_fastgithub.TlsSniPattern.None;
+            }
+
+            if (string.IsNullOrEmpty(TlsSniPattern))
+            {
+                return fake_fastgithub.TlsSniPattern.Domain;
+            }
+
+            return new TlsSniPattern(TlsSniPattern);
         }
     }
 }
