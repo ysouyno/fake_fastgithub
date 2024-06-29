@@ -242,3 +242,16 @@ System.InvalidOperationException: 'No service for type 'fake_fastgithub.HttpServ
 ** 三个端口均被占用（修复）
 
 又是因为代码抄错了的缘故（少了 ~== false~ ），现已解决。
+
+** 关于 ~HttpClientHandler.SendAsync~ 函数
+
+这个 ~HttpClientHandler.SendAsync~ 函数应该就是灵魂，加上了它，虽然不是公司的域环境，它确实 ~push~ 成功了。但是在上个 ~commit~ （ ~e84454b00a5f5b0609c61c45bb99bd1be767dcf0~ ）时，即没有实现该函数，会有如下提示：
+
+#+begin_src shellsessin
+$ git push origin dev
+Connection reset by 20.205.243.166 port 22
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+#+end_src

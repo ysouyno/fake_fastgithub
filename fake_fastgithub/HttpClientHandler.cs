@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Net;
 using System.Net.Security;
 using System.Net.Sockets;
 using System.Runtime.ConstrainedExecution;
@@ -106,6 +107,55 @@ namespace fake_fastgithub
             InnerHandler = CreateSocketsHttpHandler();
         }
 
-        // TODO SendAsync
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
+        {
+            Console.WriteLine($"HttpClientHandler.SendAsync RequestUri: {request.RequestUri}");
+
+            var uri = request.RequestUri;
+            if (uri == null)
+            {
+                throw new Exception("必须指定请求的 URI");
+            }
+
+            var context = new RequestContext
+            {
+                Domain = uri.Host,
+                IsHttps = uri.Scheme == Uri.UriSchemeHttps,
+                TlsSniPattern = domainConfig.GetTlsSniPattern().WithDomain(uri.Host).WithRandom(),
+            };
+            request.SetRequestContext(context);
+
+            // 解析 ip，替换 https 为 http
+            var uriBuilder = new UriBuilder(uri)
+            {
+                Scheme = Uri.UriSchemeHttp,
+            };
+
+            if (uri.HostNameType == UriHostNameType.Dns)
+            {
+                if (IPAddress.TryParse(domainConfig.IPAddress, out var address) == false)
+                {
+                    var endPoint = new DnsEndPoint(uri.Host, uri.Port);
+                    address = await domainResolver.ResolveAsync(endPoint, cancellationToken);
+                }
+                uriBuilder.Host = address.ToString();
+                request.Headers.Host = context.Domain;
+                context.TlsSniPattern = context.TlsSniPattern.WithIPAddress(address);
+            }
+            request.RequestUri = uriBuilder.Uri;
+
+            if (domainConfig.Timeout != null)
+            {
+                using var timeoutTokenSource = new CancellationTokenSource(this.domainConfig.Timeout.Value);
+                using var linkedTokenSource =
+                    CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutTokenSource.Token);
+                return await base.SendAsync(request, linkedTokenSource.Token);
+            }
+            else
+            {
+                return await base.SendAsync(request, cancellationToken);
+            }
+        }
     }
 }

@@ -41,7 +41,7 @@ namespace fake_fastgithub
             else
             {
                 kestrel.Listen(IPAddress.Any, HTTP_PORT);
-                logger.LogInformation($"已监听 http 反向代理，访问 http://127.0.0.1 或本机其它任意 ip 可进入 Dashboard");
+                logger.LogInformation($"已监听 http  反向代理，访问  http://127.0.0.1 或本机其它任意 ip 可进入 Dashboard");
             }
         }
 
