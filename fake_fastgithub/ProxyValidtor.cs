@@ -15,7 +15,7 @@ namespace fake_fastgithub
 
         private void ValidateSystemProxy()
         {
-            var systemProxy = HttpClient.DefaultProxy;
+            var systemProxy = System.Net.Http.HttpClient.DefaultProxy;
             if (systemProxy == null)
             {
                 return;

@@ -14,6 +14,7 @@
             services.AddConfiguration().Bind(Configuration.GetSection(nameof(fake_fastgithub)));
             services.AddDnsServer();
             services.AddDomainResolve();
+            services.AddHttpClient();
             services.AddReverseProxy();
         }
 

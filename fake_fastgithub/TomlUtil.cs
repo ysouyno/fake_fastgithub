@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Net;
+﻿using System.Net;
 using System.Text.RegularExpressions;
 using System.Text;
 
@@ -46,7 +45,7 @@ namespace fake_fastgithub
         /// <exception cref="Exception"></exception>
         private static async Task<IPAddress> GetPublicIPAddressAsync(CancellationToken cancellationToken)
         {
-            using var httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(3d) };
+            using var httpClient = new System.Net.Http.HttpClient { Timeout = TimeSpan.FromSeconds(3d) };
             var response = await httpClient.GetStringAsync("https://pv.sohu.com/cityjson?ie=utf-8", cancellationToken);
             var match = Regex.Match(response, @"\d+\.\d+\.\d+\.\d+");
             return match.Success && IPAddress.TryParse(match.Value, out var address)
