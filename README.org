@@ -207,7 +207,7 @@ System.InvalidOperationException: 'No service for type 'fake_fastgithub.HttpServ
   }
 #+end_src
 
-不知道这里为什么会有这个错误？必须要加上 ~fake_fastgithub~ 命令空间限定，虽然该类就在此 ~fake_fastgithub~ 命令空间里。
+不知道这里为什么会有这个错误？必须要加上 ~fake_fastgithub~ 命名空间限定，虽然该类就在此 ~fake_fastgithub~ 命名空间里。
 
 * <2024-06-29 周六>
 
@@ -224,3 +224,17 @@ System.InvalidOperationException: 'No service for type 'fake_fastgithub.HttpServ
 因为 ~RequestResolver~ 类是第一个运行的，所以 ~依赖注入~ 在构造它时发现它的构造函数参数 ~FastGithubConfig~ 没有被注入，所以报异常。
 
 我一直在想这些类的构造函数一直没有被显式调用，它们的构造函数参数，有两个，有三个，有四个的，那到底是怎么传参的？现在终于知道了，原来都是通过像 ~TryAddSingleton~ ， ~TryAddScoped~ ， ~TryAddTransient~ 这样的函数进行传参的。
+
+** 三个端口均被占用
+
+目前有此异常不知道如何解决：
+
+#+begin_src text
+  warn: fake_fastgithub[0]
+  由于 tcp 端口 22 已经被其它进程占用，github 的 ssh 代理功能将受限
+  warn: fake_fastgithub[0]
+  由于 tcp 端口 80 已经被其它进程占用，http 反向代理功能将受限
+  Unhandled exception. System.Exception: 由于 tcp 端口 443 已经被其它进程占用，fake_fastgithub 无法进行必须的 https 反向代理
+#+end_src
+
+我添加了 ~Yarp.ReverseProxy~ ，从字面上看，以为用上了 ~AddHttpForwarder~ 这个 ~转发函数~ ，是不是就可以解决这个问题？答案是不行！

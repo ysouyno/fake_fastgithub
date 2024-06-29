@@ -4,7 +4,10 @@
     {
         public static IServiceCollection AddReverseProxy(this IServiceCollection services)
         {
-            return services.AddSingleton<CertService>();
+            return services
+                .AddMemoryCache()
+                .AddHttpForwarder()
+                .AddSingleton<CertService>();
         }
     }
 }
