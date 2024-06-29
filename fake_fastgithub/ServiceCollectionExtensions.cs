@@ -7,7 +7,7 @@ namespace fake_fastgithub
     {
         public static OptionsBuilder<FastGithubOptions> AddConfiguration(this IServiceCollection services)
         {
-            services.TryAddSingleton<FastGithubOptions>();
+            services.TryAddSingleton<FastGithubConfig>();
             return services.AddOptions<FastGithubOptions>();
         }
 

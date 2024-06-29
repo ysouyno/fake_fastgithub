@@ -50,7 +50,7 @@ namespace fake_fastgithub
             domainConfigs = ConvertDomainConfigs(opt.DomainConfigs);
             domainConfigCache = new ConcurrentDictionary<string, DomainConfig?>();
 
-            options.OnChange(opt => this.Update(opt));
+            options.OnChange(opt => Update(opt));
         }
 
         public bool IsMatch(string domain)
