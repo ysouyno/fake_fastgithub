@@ -36,7 +36,7 @@ namespace fake_fastgithub
         public static bool CanListenTcp(int port)
         {
             var tcpListeners = IPGlobalProperties.GetIPGlobalProperties().GetActiveTcpListeners();
-            return tcpListeners.Any(item => item.Port == port);
+            return tcpListeners.Any(item => item.Port == port) == false;
         }
 
         public static bool ContainsIPAddress(IPAddress address)

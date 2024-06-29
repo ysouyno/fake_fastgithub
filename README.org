@@ -238,3 +238,7 @@ System.InvalidOperationException: 'No service for type 'fake_fastgithub.HttpServ
 #+end_src
 
 我添加了 ~Yarp.ReverseProxy~ ，从字面上看，以为用上了 ~AddHttpForwarder~ 这个 ~转发函数~ ，是不是就可以解决这个问题？答案是不行！
+
+** 三个端口均被占用（修复）
+
+又是因为代码抄错了的缘故（少了 ~== false~ ），现已解决。
