@@ -7,7 +7,8 @@
             return services
                 .AddMemoryCache()
                 .AddHttpForwarder()
-                .AddSingleton<CertService>();
+                .AddSingleton<CertService>()
+                .AddSingleton<ReverseProxyMiddleware>();
         }
     }
 }

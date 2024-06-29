@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 
 namespace fake_fastgithub
@@ -56,6 +57,18 @@ namespace fake_fastgithub
         public bool IsMatch(string domain)
         {
             return domainConfigs.Keys.Any(item => item.IsMatch(domain));
+        }
+
+        public bool TryGetDomainConfig(string domain, [MaybeNullWhen(false)] out DomainConfig value)
+        {
+            value = domainConfigCache.GetOrAdd(domain, GetDomainConfig);
+            return value != null;
+
+            DomainConfig? GetDomainConfig(string domain)
+            {
+                var key = domainConfigs.Keys.FirstOrDefault(item => item.IsMatch(domain));
+                return key == null ? null : domainConfigs[key];
+            }
         }
     }
 }

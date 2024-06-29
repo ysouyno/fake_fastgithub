@@ -105,5 +105,7 @@ namespace fake_fastgithub
             this.domainResolver = domainResolver;
             InnerHandler = CreateSocketsHttpHandler();
         }
+
+        // TODO SendAsync
     }
 }
