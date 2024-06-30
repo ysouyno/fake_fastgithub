@@ -67,7 +67,7 @@ namespace fake_fastgithub
 
         public static void DnsRemovePrimitive(IPAddress primitive)
         {
-            var @interface = GetBestNetworkInterface(@www_baidu_com);
+            var @interface = GetBestNetworkInterface(www_baidu_com);
             var dnsAddresses = @interface.GetIPProperties().DnsAddresses;
             if (primitive.Equals(dnsAddresses.FirstOrDefault()))
             {

@@ -257,3 +257,18 @@ and the repository exists.
 #+end_src
 
 另外发现一个问题，我在 ~HttpClientHandler.SendAsync~ 中，还有其它函数中加的 ~Console.WriteLine~ 调试日志都没有显示出来，同时又回想到还有一个 ~RequestLoggingMiddleware~ 中间件没有实现，是不是这个原因导致的？
+
+* <2024-06-30 周日>
+
+** 关于 ~netsh~ 命令
+
+目前用到的所有 ~netsh~ 命令如下：
+
+#+begin_src text
+  interface ipv4 delete dns "以太网" all
+  interface ipv4 add dns "以太网" 127.0.0.1 validate=no
+  interface ipv4 add dns "以太网" fe80::1%11 validate=no
+  interface ipv4 add dns "以太网" 127.0.0.1 validate=no
+  interface ipv4 add dns "以太网" 192.168.1.1 validate=no
+  interface ipv4 add dns "以太网" fe80::1%11 validate=no
+#+end_src
