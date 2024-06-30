@@ -53,5 +53,10 @@ namespace fake_fastgithub
             if (process != null && process.HasExited == false)
                 process.Kill();
         }
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }
