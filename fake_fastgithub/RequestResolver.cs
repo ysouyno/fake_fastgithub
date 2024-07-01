@@ -17,6 +17,7 @@ namespace fake_fastgithub
 
         public async Task<IResponse> Resolve(IRequest request, CancellationToken cancellationToken = default)
         {
+            Console.WriteLine($"RequestResolver.Resolve, request: {request.Questions.FirstOrDefault()?.Name}");
             var response = Response.FromRequest(request);
             if (request is not RemoteEndPointRequest remoteEndPointRequest)
             {

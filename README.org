@@ -290,3 +290,26 @@ and the repository exists.
 #+end_src
 
 因此只要重写 ~DnscryptProxy::ToString~ 即可。
+
+* <2024-07-01 周一>
+
+** 首次成功
+
+太兴奋了，终于成功了！在域环境下可以使用 ~push~ 和 ~pull~ 了。
+
+代码不用动，原因很简单，在 ~appsettings.github.json~ 文件中使用了原项目的 ~FastGithub~ 命名空间，把它改成现项目的 ~fake_fastgithub~ 命名空间即可。
+
+同时有意外发现：为什么在域环境下每次启动程序或者运行 ~emacs~ 命令时会有延迟，从 ~fake_fastgithub~ 的 ~dns~ 请求日志来看，当发生延迟时，下面四个请求分别发送了两次：
+
+#+begin_src text
+  RequestResolver.Resolve, request: _ldap._tcp.dc._msdcs.xxxx.com
+  RequestResolver.Resolve, request: dc.xxxx.com
+  RequestResolver.Resolve, request: dc1.xxxx.com
+  RequestResolver.Resolve, request: _ldap._tcp.bf0247c2-2fd7-4ba8-92a7-c6358efb6dac.domains._msdcs.xxxx.com
+  RequestResolver.Resolve, request: _ldap._tcp.dc._msdcs.xxxx.com
+  RequestResolver.Resolve, request: dc.xxxx.com
+  RequestResolver.Resolve, request: dc1.xxxx.com
+  RequestResolver.Resolve, request: _ldap._tcp.bf0247c2-2fd7-4ba8-92a7-c6358efb6dac.domains._msdcs.xxxx.com
+#+end_src
+
+注：敏感字符已被替换成 ~xxxx.com~ 。
