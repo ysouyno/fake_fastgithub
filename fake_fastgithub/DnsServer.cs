@@ -62,18 +62,12 @@ namespace fake_fastgithub
             {
                 try
                 {
-                    Console.WriteLine($"org remoteEndPoint: {remoteEndPoint}");
                     var result = await socket.ReceiveFromAsync(buffer, SocketFlags.None, remoteEndPoint);
                     var datas = new byte[result.ReceivedBytes];
                     buffer.AsSpan(0, datas.Length).CopyTo(datas);
-                    Console.WriteLine($"now remoteEndPoint: {result.RemoteEndPoint}");
                     HandleRequestAsync(datas, result.RemoteEndPoint, cancellationToken);
                 }
-                catch (SocketException e) when (e.SocketErrorCode == SocketError.OperationAborted)
-                {
-                    Console.WriteLine("ListenAsync SocketError.OperationAborted");
-                    break;
-                }
+                catch (SocketException e) when (e.SocketErrorCode == SocketError.OperationAborted) { break; }
             }
         }
 
