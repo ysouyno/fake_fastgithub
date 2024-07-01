@@ -26,11 +26,5 @@ namespace fake_fastgithub
             services.TryAddSingleton<IDomainResolver, DomainResolver>();
             return services.AddHostedService<DnscryptProxyHostedService>();
         }
-
-        public static IServiceCollection AddHttpClient(this IServiceCollection services)
-        {
-            services.TryAddSingleton<IHttpClientFactory, HttpClientFactory>();
-            return services;
-        }
     }
 }

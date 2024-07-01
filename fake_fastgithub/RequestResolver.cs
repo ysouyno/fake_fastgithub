@@ -34,7 +34,6 @@ namespace fake_fastgithub
             var domain = question.Name;
             if (fastGithubConfig.IsMatch(domain.ToString()))
             {
-                Console.WriteLine($"matched: {domain}");
                 var localAddress = remoteEndPointRequest.GetLocalIPAddress() ?? IPAddress.Loopback;
                 var record = new IPAddressResourceRecord(domain, localAddress, ttl);
                 response.AnswerRecords.Add(record);

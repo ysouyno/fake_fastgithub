@@ -57,15 +57,16 @@ namespace fake_fastgithub
         public async Task ListenAsync(CancellationToken cancellationToken)
         {
             var remoteEndPoint = new IPEndPoint(IPAddress.Any, 0);
-            Console.WriteLine($"remoteEndPoint: {remoteEndPoint.ToString()}");
 
             while (cancellationToken.IsCancellationRequested == false)
             {
                 try
                 {
+                    Console.WriteLine($"org remoteEndPoint: {remoteEndPoint}");
                     var result = await socket.ReceiveFromAsync(buffer, SocketFlags.None, remoteEndPoint);
                     var datas = new byte[result.ReceivedBytes];
                     buffer.AsSpan(0, datas.Length).CopyTo(datas);
+                    Console.WriteLine($"now remoteEndPoint: {result.RemoteEndPoint}");
                     HandleRequestAsync(datas, result.RemoteEndPoint, cancellationToken);
                 }
                 catch (SocketException e) when (e.SocketErrorCode == SocketError.OperationAborted)

@@ -313,3 +313,19 @@ and the repository exists.
 #+end_src
 
 注：敏感字符已被替换成 ~xxxx.com~ 。
+
+** 做减法
+
+花了一上午仔细研究了一下整个流程，发现以下几个类没有用到：
+
+#+begin_src text
+HttpClient.cs
+HttpClientFactory.cs
+HttpClientHandler.cs
+IHttpClientFactory.cs
+ReverseProxyApplicationBuilderExtensions.cs
+ReverseProxyMiddleware.cs
+ReverseProxyServiceCollectionExtensions.cs
+#+end_src
+
+所以我将它们删除了，且发现整个项目用不到 ~Yarp.ReverseProxy~ 反向代理，所以这个依赖也可以去掉。（因此 ~AddHttpForwarder()~ 的调用也不需要了）。

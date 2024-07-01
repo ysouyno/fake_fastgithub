@@ -14,13 +14,12 @@
             services.AddConfiguration().Bind(Configuration.GetSection(nameof(fake_fastgithub)));
             services.AddDnsServer();
             services.AddDomainResolve();
-            services.AddHttpClient();
-            services.AddReverseProxy();
+
+            services
+                .AddMemoryCache()
+                .AddSingleton<CertService>();
         }
 
-        public void Configure(IApplicationBuilder app)
-        {
-            app.UseReverseProxy();
-        }
+        public void Configure(IApplicationBuilder app) { }
     }
 }
