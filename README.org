@@ -413,3 +413,46 @@ and the repository exists.
 
 + ~127.0.0.1:5533~ 是 ~dnscrypt-proxy.exe~ 的地址，即向它查询 ~Unspecified/ssh.github.com:443~ 的真正 ~ip~ 地址。
 + 如果这里查询不到的话，则会使用 ~114.114.114.114:53~ 中的相应 ~ip~ ，这样 ~push~ 或者 ~pull~ 将失败。
+
+* <2024-07-02 周二>
+
+** 更少代码获得 ~github~ 的 ~ip~
+
+我在想 ~FastGithub~ 中有那么老长的代码其实就是通过 ~dnscrypt-proxy.exe~ 去获取纯净的 ~ip~ ，下面的几行代码也能实现：
+
+#+begin_src csharp
+  using DNS.Client;
+  using DNS.Protocol;
+  using System.Net;
+
+  namespace Test
+  {
+      class Program
+      {
+          static void lookup(IPEndPoint dns, DnsEndPoint endPoint)
+          {
+              Console.WriteLine($"lookup: dns: {dns}, endPoint: {endPoint}");
+              var dnsclient = new DnsClient(dns);
+              var addresses = dnsclient.Lookup(endPoint.Host, RecordType.A);
+              foreach (IPAddress address in addresses.Result)
+              {
+                  Console.WriteLine($"{address}");
+              }
+          }
+
+          public static void Main(string[] args)
+          {
+              DnsEndPoint dnsendpoint = new("ssh.github.com", 443);
+              IPEndPoint ipendpoint = new IPEndPoint(IPAddress.Loopback, 5533);
+              lookup(ipendpoint, dnsendpoint);
+          }
+      }
+  }
+#+end_src
+
+测试输出如下（先让 ~dnscrypt-proxy.exe~ 运行起来再运行该测试代码）：
+
+#+begin_src text
+  lookup: dns: 127.0.0.1:5533, endPoint: Unspecified/ssh.github.com:443
+  140.82.112.35
+#+end_src
