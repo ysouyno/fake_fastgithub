@@ -456,3 +456,28 @@ and the repository exists.
   lookup: dns: 127.0.0.1:5533, endPoint: Unspecified/ssh.github.com:443
   140.82.112.35
 #+end_src
+
+* <2025-01-22 周三>
+
+** 如何设置以管理员权限运行
+
+首先，如何在工程中添加 ~app.manifest~ 就花了我不少工夫：
+
+1. 右键工程属性，在 ~Win32 Resources~ 中会看到 ~Manifest~ 。
+2. 这里默认选项是 ~Embed manifest with default settings~ ，必须要改为 ~Use a custom manifest~ 。
+3. 然后就会看到多出一个选项 ~Manifest path~ ，此时指定准备好的 ~app.manifest~ 即可。
+
+#+begin_src xml
+  <?xml version="1.0" encoding="UTF-8"?>
+  <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+    <trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
+      <security>
+        <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+          <requestedExecutionLevel level="requireAdministrator" uiAccess="false" />
+        </requestedPrivileges>
+      </security>
+    </trustInfo>
+  </assembly>
+#+end_src
+
+重新编译后就可以看到 ~fake_fastgithub.exe~ 图标上多了一个小盾牌，打完收工。
